@@ -5,12 +5,10 @@ class SentencesController < ApplicationController
 
   def create
     @sentence = Sentence.create(sentence_params)
+    @sentence.corrected_text = @sentence.correct_leading_space
     if @sentence.save
-      @sentence.corrected_text = @sentence.correct_leading_space
-      if @sentence.save
-        flash[:notice] = "correcting your input"
-        render json: @sentence
-      end
+      flash[:notice] = "correcting your input"
+      render json: @sentence
     else
       flash[:alert] = "there was an error with your input"
     end
@@ -18,6 +16,6 @@ class SentencesController < ApplicationController
 
   private
   def sentence_params
-    params.require(:sentence).permit(:input_text)
+    params.require(:sentence).permit(:input_text, :corrected_text, :deletions, :additions)
   end
 end
