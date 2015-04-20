@@ -1,0 +1,9 @@
+<%= form_for @sentence do |f| %>
+  <%= f.label :input_text %>
+  <%= f.text_area :input_text, id: "text-input" %>
+  <%= f.submit %>
+<% end %>
+
+<div class="your-corrected-text">
+
+</div>
